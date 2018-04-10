@@ -5,22 +5,36 @@ const loadDatabase = (localStorageKey) => {
     return JSON.parse(dataBaseString);
 }
 
-const inventory = loadDatabase("HomeInventory");
-console.log(inventory);
+const HomeInventory = loadDatabase("HomeInventory");
+console.log(HomeInventory);
 let article = document.getElementById("mystuff")
-for (type in inventory) {
-    for (item in inventory[type]) {
-        let section = document.createElement("section");
-        p1 = document.createElement("p");
-        p1.textContent = inventory[type][item].name;
-        p2 = document.createElement("p");
-        p2.textContent = inventory[type][item].location;
-        p3 = document.createElement("p")
-        p3.textContent = inventory[type][item].description;
-        section.appendChild(p1);
-        section.appendChild(p2);
-        section.appendChild(p3);
-        article.appendChild(section);
+
+const createDom = (InventoryDatabase) => {
+    for (let type in InventoryDatabase) {
+
+        for (let item in InventoryDatabase[type]) {
+            let section = document.createElement("section");
+
+            for(let prop in InventoryDatabase[type][item]){
+                const pComp = document.createElement("p");
+                pComp.textContent = InventoryDatabase[type][item][prop];
+                section.appendChild(pComp);
+            }
+            
+            article.appendChild(section);
+        }
     }
 }
 
+createDom(HomeInventory);
+
+// Write a function that performs the operation of creating your DOM components
+
+
+// Define an argument to the function that will filter the data to one of the 
+// data sets. For example, if I pass a string value of "crafts" to the function, 
+// only items in the crafts table in the database should appear.
+
+const createComp = (type, item) => {
+    
+}
